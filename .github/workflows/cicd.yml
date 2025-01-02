@@ -41,14 +41,14 @@ jobs:
       #    docker run -d -p 8082:8082 --restart unless-stopped --name tracking-service-container yk1917/tracking-service:latest    
  
 #eureka
-      - name: Pull eureka-server Image from Docker Hub
-        run: docker pull yk1917/eurekaserver:latest
+      # - name: Pull eureka-server Image from Docker Hub
+      #   run: docker pull yk1917/eurekaserver:latest
  
-      - name: Stop and Remove Old eurekaserver Container 
-        run: |
-          docker stop eurekaserver-container || true
-          docker rm eurekaserver-container || true
+      # - name: Stop and Remove Old eurekaserver Container 
+      #   run: |
+      #     docker stop eurekaserver-container || true
+      #     docker rm eurekaserver-container || true
  
-      - name: Run Docker Container for eurekaserver
-        run: |
-          docker run -d -p 8761:8761 --restart unless-stopped --name eurekaserver-container yk1917/eurekaserver:latest 
+      # - name: Run Docker Container for eurekaserver
+      #   run: |
+      #     docker run -d -p 8761:8761 --restart unless-stopped --name eurekaserver-container yk1917/eurekaserver:latest 
