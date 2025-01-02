@@ -28,17 +28,17 @@ jobs:
  
 # same for all repo
 
-      # - name: Pull tracking-service Image from Docker Hub
-      #   run: docker pull yk1917/tracking-service:latest
+      - name: Pull tracking-service Image from Docker Hub
+        run: docker pull yk1917/tracking-service:latest
  
-      # - name: Stop and Remove Old tracking-service Container
-      #   run: |
-      #    docker stop tracking-service || true
-      #    docker rm tracking-service-container || true
+      - name: Stop and Remove Old tracking-service Container
+        run: |
+         docker stop tracking-service || true
+         docker rm tracking-service-container || true
  
-      # - name: Run Docker Container for tracking-service
-      #   run: |
-      #    docker run -d -p 8082:8082 --restart unless-stopped --name tracking-service-container yk1917/tracking-service:latest    
+      - name: Run Docker Container for tracking-service
+        run: |
+         docker run -d -p 8082:8082 --restart unless-stopped --name tracking-service-container yk1917/tracking-service:latest    
  
 #eureka
       - name: Pull eureka-server Image from Docker Hub
