@@ -14,17 +14,17 @@ jobs:
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
  
-      - name: Pull sprintmanagementservice Image from Docker Hub
-        run: docker pull yk1917/sprintmanagementservice:latest
+      # - name: Pull sprintmanagementservice Image from Docker Hub
+      #   run: docker pull yk1917/sprintmanagementservice:latest
  
-      - name: Stop and Remove Old sprintmanagementservice Container
-        run: |
-          docker stop sprintmanagementservice-container || true
-          docker rm sprintmanagementservice-container || true
+      # - name: Stop and Remove Old sprintmanagementservice Container
+      #   run: |
+      #     docker stop sprintmanagementservice-container || true
+      #     docker rm sprintmanagementservice-container || true
  
-      - name: Run Docker Container for sprintmanagementservice
-        run: |
-          docker run -d -p 8080:8080 --restart unless-stopped --name sprintmanagementservice-container yk1917/sprintmanagementservice:latest
+      # - name: Run Docker Container for sprintmanagementservice
+      #   run: |
+      #     docker run -d -p 8080:8080 --restart unless-stopped --name sprintmanagementservice-container yk1917/sprintmanagementservice:latest
  
 # same for all repo
 
