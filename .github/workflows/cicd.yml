@@ -1,0 +1,54 @@
+name: CICD
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  deploy-to-qa:
+    runs-on: aws-ec2 # Use appropriate OS
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+ 
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+ 
+      - name: Pull sprint-management-service Image from Docker Hub
+        run: docker pull yk1917/sprintmanagementservice:latest
+ 
+      - name: Stop and Remove Old sprint-management-service Container
+        run: |
+          docker stop sprint-management-service-container || true
+          docker rm sprint-management-service-container || true
+ 
+      - name: Run Docker Container for sprint-management-service
+        run: |
+          docker run -d -p 8080:8080 --restart unless-stopped --name sprint-management-service-container yk1917/sprintmanagementservice:latest
+ 
+# same for all repo
+
+      - name: Pull tracking-service Image from Docker Hub
+        run: docker pull yk1917/tracking-service:latest
+ 
+      - name: Stop and Remove Old tracking-service Container
+        run: |
+         docker stop tracking-service || true
+         docker rm tracking-service-container || true
+ 
+      - name: Run Docker Container for tracking-service
+        run: |
+         docker run -d -p 8082:8082 --restart unless-stopped --name tracking-service-container yk1917/tracking-service:latest    
+ 
+#eureka
+      - name: Pull eureka-server Image from Docker Hub
+        run: docker pull yk1917/eurekaserver:latest
+ 
+      - name: Stop and Remove Old eurekaserver Container 
+        run: |
+          docker stop eurekaserver-container || true
+          docker rm eurekaserver-container || true
+ 
+      - name: Run Docker Container for eurekaserver
+        run: |
+          docker run -d -p 8761:8761 --restart unless-stopped --name eurekaserver-container yk1917/eurekaserver:latest 
